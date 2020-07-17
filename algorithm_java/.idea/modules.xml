@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/algorithm_java.iml" filepath="$PROJECT_DIR$/.idea/algorithm_java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10171/bj10171.iml" filepath="$PROJECT_DIR$/bj10171/bj10171.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj1018/bj1018.iml" filepath="$PROJECT_DIR$/bj1018/bj1018.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10809/bj10809.iml" filepath="$PROJECT_DIR$/bj10809/bj10809.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10818/bj10818.iml" filepath="$PROJECT_DIR$/bj10818/bj10818.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10870/bj10870.iml" filepath="$PROJECT_DIR$/bj10870/bj10870.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10872/bj10872.iml" filepath="$PROJECT_DIR$/bj10872/bj10872.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10950/bj10950.iml" filepath="$PROJECT_DIR$/bj10950/bj10950.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10951/bj10951.iml" filepath="$PROJECT_DIR$/bj10951/bj10951.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10952/bj10952.iml" filepath="$PROJECT_DIR$/bj10952/bj10952.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj10996/bj10996.iml" filepath="$PROJECT_DIR$/bj10996/bj10996.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj11022/bj11022.iml" filepath="$PROJECT_DIR$/bj11022/bj11022.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj11654/bj11654.iml" filepath="$PROJECT_DIR$/bj11654/bj11654.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj1316/bj1316.iml" filepath="$PROJECT_DIR$/bj1316/bj1316.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj1436/bj1436.iml" filepath="$PROJECT_DIR$/bj1436/bj1436.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj14681/bj14681.iml" filepath="$PROJECT_DIR$/bj14681/bj14681.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj15596/bj15596.iml" filepath="$PROJECT_DIR$/bj15596/bj15596.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj1712/bj1712.iml" filepath="$PROJECT_DIR$/bj1712/bj1712.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj18258/bj18258.iml" filepath="$PROJECT_DIR$/bj18258/bj18258.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2108/bj2108.iml" filepath="$PROJECT_DIR$/bj2108/bj2108.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2231/bj2231.iml" filepath="$PROJECT_DIR$/bj2231/bj2231.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2446/bj2446.iml" filepath="$PROJECT_DIR$/bj2446/bj2446.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2523/bj2523.iml" filepath="$PROJECT_DIR$/bj2523/bj2523.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2562/bj2562.iml" filepath="$PROJECT_DIR$/bj2562/bj2562.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2588/bj2588.iml" filepath="$PROJECT_DIR$/bj2588/bj2588.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2675/bj2675.iml" filepath="$PROJECT_DIR$/bj2675/bj2675.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2753/bj2753.iml" filepath="$PROJECT_DIR$/bj2753/bj2753.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2798/bj2798.iml" filepath="$PROJECT_DIR$/bj2798/bj2798.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2884/bj2884.iml" filepath="$PROJECT_DIR$/bj2884/bj2884.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2908/bj2908.iml" filepath="$PROJECT_DIR$/bj2908/bj2908.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj2941/bj2941.iml" filepath="$PROJECT_DIR$/bj2941/bj2941.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj3052/bj3052.iml" filepath="$PROJECT_DIR$/bj3052/bj3052.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj5543/bj5543.iml" filepath="$PROJECT_DIR$/bj5543/bj5543.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj5622/bj5622.iml" filepath="$PROJECT_DIR$/bj5622/bj5622.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bj7568/bj7568.iml" filepath="$PROJECT_DIR$/bj7568/bj7568.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hyperskill_calculator/hyperskill_calculator.iml" filepath="$PROJECT_DIR$/hyperskill_calculator/hyperskill_calculator.iml" />
+    </modules>
+  </component>
+</project>
