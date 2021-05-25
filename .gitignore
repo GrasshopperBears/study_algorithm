@@ -3,3 +3,7 @@ algorithm_java/.idea/
 algorithm_java/out/
 algorithm_java/tips.md
 algorithm_python/.idea/
+
+algorithm_python/*
+!algorithm_python/bj/*
+!algorithm_python/leet/*
