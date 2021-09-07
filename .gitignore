@@ -1,7 +1,6 @@
 **/.idea/*
 cmake-build-debug/
-*.class
+algorithm_java/out/
 *.iml
-*.xml
 algorithm_rust/target/
 **/node_modules/
