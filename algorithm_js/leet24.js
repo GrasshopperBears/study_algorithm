@@ -10,7 +10,7 @@
  * @return {ListNode}
  */
 const assert = require("assert");
-const LinkedList = require("./lib/LinkedList");
+const { LinkedList } = require("./lib/LinkedList");
 
 const swapPairs = (head) => {
   let prev = undefined;
