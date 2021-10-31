@@ -4,3 +4,5 @@ algorithm_java/out/
 *.iml
 algorithm_rust/target/
 **/node_modules/
+
+**/coding-test/
