@@ -1,4 +1,4 @@
-const recoverTree = (root) => {
+const recursiveTraversal = (root) => {
   const nodes = [];
 
   const visit = (node) => {
@@ -12,6 +12,28 @@ const recoverTree = (root) => {
   };
 
   visit(root);
+  return nodes;
+};
+
+const iterativeTraversal = (root) => {
+  const nodes = [];
+  const stack = [];
+
+  do {
+    while (root) {
+      stack.push(root);
+      root = root.left;
+    }
+    const current = stack.pop();
+    nodes.push(current);
+    root = current.right;
+  } while (stack.length || root);
+
+  return nodes;
+};
+
+const recoverTree = (root) => {
+  const nodes = iterativeTraversal(root);
 
   let i = 0,
     j = nodes.length - 1,
