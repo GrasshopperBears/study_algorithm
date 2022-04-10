@@ -7,35 +7,28 @@ const minSideJumps = (obstacles) => {
 
   if (n < 3) return 0;
 
-  const dp = new Array(LANES).fill(0).reduce((acc) => {
-    acc.push(new Array(n).fill(0));
-    return acc;
-  }, []);
+  let lastDp = new Array(LANES).fill(0);
 
   for (let i = n - 2; i >= 0; i--) {
     const currentObstacle = obstacles[i] - 1;
+    const newDp = new Array(LANES).fill(0);
     for (let lane = 0; lane < LANES; lane++) {
       if (currentObstacle === lane) {
-        dp[lane][i] = -1;
+        newDp[lane] = -1;
         continue;
       }
       const candidates = [];
       const next = (lane + 1) % LANES;
       const nextNext = (lane + 2) % LANES;
-      if (dp[lane][i + 1] >= 0) candidates.push(dp[lane][i + 1]);
-      if (currentObstacle !== next && dp[next][i + 1] >= 0) candidates.push(dp[next][i + 1] + 1);
-      if (currentObstacle !== nextNext && dp[nextNext][i + 1] >= 0) candidates.push(dp[nextNext][i + 1] + 1);
-      dp[lane][i] = Math.min(...candidates);
+      if (lastDp[lane] >= 0) candidates.push(lastDp[lane]);
+      if (currentObstacle !== next && lastDp[next] >= 0) candidates.push(lastDp[next] + 1);
+      if (currentObstacle !== nextNext && lastDp[nextNext] >= 0) candidates.push(lastDp[nextNext] + 1);
+      newDp[lane] = Math.min(...candidates);
     }
+    lastDp = newDp;
   }
-  return dp[1][0];
+  return lastDp[1];
 };
-
-[
-  [1, -1, 0, 0, 0],
-  [0, 2, -1, 0, 0],
-  [0, 0, 1, -1, 0],
-];
 
 assert.deepEqual(minSideJumps([0, 1, 2, 3, 0]), 2);
 assert.deepEqual(minSideJumps([0, 1, 1, 3, 3, 0]), 0);
