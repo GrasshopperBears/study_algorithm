@@ -5,35 +5,20 @@ class Node {
     this.val = num;
     this.prev = null;
     this.next = null;
-    this.deleted = false;
   }
 }
 
-const moveDown = (node, rows) => {
-  let cnt = 0;
+const move = (node, rows, isDown) => {
   let curr = node;
-  while (cnt < rows) {
-    curr = curr.next;
-    if (curr === null) break;
-    if (!curr.deleted) cnt++;
-  }
-  return curr;
-};
-
-const moveUp = (node, rows) => {
-  let cnt = 0;
-  let curr = node;
-  while (cnt < rows) {
-    curr = curr.prev;
-    if (curr === null) break;
-    if (!curr.deleted) cnt++;
+  for (let i = 0; i < rows; i++) {
+    curr = isDown ? curr.next : curr.prev;
   }
   return curr;
 };
 
 const solution = (n, k, cmdList) => {
   const delStack = [];
-  const head = new Node(0);
+  let head = new Node(0);
   let curr = head;
 
   for (let i = 1; i < n; i++) {
@@ -49,29 +34,43 @@ const solution = (n, k, cmdList) => {
     const tokens = cmd.split(' ');
     if (tokens.length === 2) {
       const rows = Number(tokens[1]);
-      if (tokens[0] === 'D') curr = moveDown(curr, rows);
-      else curr = moveUp(curr, rows);
+      if (tokens[0] === 'D') curr = move(curr, rows, true);
+      else curr = move(curr, rows, false);
     } else {
       if (tokens[0] === 'C') {
-        curr.deleted = true;
+        if (curr.prev === null) head = curr.next;
+        else curr.prev.next = curr.next;
+
+        if (curr.next !== null) curr.next.prev = curr.prev;
+
         delStack.push(curr);
-        curr = moveDown(curr, 1) ?? moveUp(curr, 1);
+        const moveResult = move(curr, 1, true);
+        curr = moveResult !== null ? moveResult : move(curr, 1, false);
       } else {
         const [last] = delStack.splice(delStack.length - 1, 1);
-        last.deleted = false;
+
+        if (last.prev === null) head = last;
+        else last.prev.next = last;
+
+        if (last.next !== null) last.next.prev = last;
       }
     }
   }
   curr = head;
   let result = '';
-  while (curr !== null) {
-    result += curr.deleted ? 'X' : 'O';
-    curr = curr.next;
+  for (let i = 0; i < n; i++) {
+    if (curr === null || curr.val !== i) {
+      result += 'X';
+    } else {
+      result += 'O';
+      curr = curr.next;
+    }
   }
   return result;
 };
 
 assert.deepEqual(solution(8, 2, ['D 2', 'C', 'U 3', 'C', 'D 4', 'C', 'U 2', 'Z', 'Z']), 'OOOOXOOO');
 assert.deepEqual(solution(8, 2, ['D 2', 'C', 'U 3', 'C', 'D 4', 'C', 'U 2', 'Z', 'Z', 'U 1', 'C']), 'OOXOXOOO');
+assert.deepEqual(solution(8, 7, ['C', 'C', 'C', 'C', 'C', 'C', 'C']), 'OXXXXXXX');
 
 console.log('All test passed');
