@@ -4,23 +4,35 @@ class FirstUnique {
   constructor(nums) {
     this.queue = nums;
     this.count = new Map();
+    this.firstIdx = -1;
+    this.lastIdx = -1;
     for (let num of nums) {
       const prev = this.count.get(num);
       this.count.set(num, prev ? prev + 1 : 1);
     }
+    this.setFirstIdx();
+  }
+
+  setFirstIdx() {
+    for (let i = this.lastIdx + 1; i < this.queue.length; i++) {
+      if (this.count.get(this.queue[i]) === 1) {
+        this.lastIdx = this.firstIdx = i;
+        return;
+      }
+    }
+    this.firstIdx = -1;
+    this.lastIdx = this.queue.length - 1;
   }
 
   showFirstUnique() {
-    for (let num of this.queue) {
-      if (this.count.get(num) === 1) return num;
-    }
-    return -1;
+    return this.firstIdx >= 0 ? this.queue[this.firstIdx] : -1;
   }
 
   add(val) {
     this.queue.push(val);
     const prev = this.count.get(val);
     this.count.set(val, prev ? prev + 1 : 1);
+    if (this.firstIdx === -1 || val === this.queue[this.firstIdx]) this.setFirstIdx();
   }
 }
 
