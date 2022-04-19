@@ -1,6 +1,9 @@
-package main
+package leet34_test
 
-import "fmt"
+import (
+	"testing"
+	"github.com/stretchr/testify/assert"
+)
 
 func searchRange(nums []int, target int) []int {
 	left := 0
@@ -47,8 +50,11 @@ func searchRange(nums []int, target int) []int {
 	return []int{left, right}
 }
 
-func main() {
+func TestSearchRange(t *testing.T) {
 	arr := []int{0,0,1,2,2}
 	result := searchRange(arr, 2)
-	fmt.Println(result)
+	answer := []int{3, 4}
+
+	assert.Equal(t, result, answer)
+	// assert.ElementsMatch(t, a, b) -- check without order
 }
