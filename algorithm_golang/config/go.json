@@ -12,9 +12,9 @@
       "\t",
       "}\n",
       "func Test$5(t *testing.T) {",
-      "\tresult := $2",
+      "\tresult := $2()",
       "\tanswer := $6",
-      "\tassert.Eqaul(t, result, answer)",
+      "\tassert.Equal(t, result, answer)",
       "}"
     ]
   }
