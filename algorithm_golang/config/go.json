@@ -1,0 +1,21 @@
+{
+  "Algorithm skeleton code": {
+    "prefix": "algorithmgolang",
+    "body": [
+      "package $1_test\n",
+      "import (",
+      "\t// \"fmt\"",
+      "\t\"testing\"",
+      "\t\"github.com/stretchr/testify/assert\"",
+      ")\n",
+      "func $2($3) $4 {",
+      "\t",
+      "}\n",
+      "func Test$5(t *testing.T) {",
+      "\tresult := $2",
+      "\tanswer := $6",
+      "\tassert.Eqaul(t, result, answer)",
+      "}"
+    ]
+  }
+}
