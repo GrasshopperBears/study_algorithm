@@ -34,30 +34,35 @@ func validPalindrome(s string) bool {
 func TestValistPalindrome1(t *testing.T) {
 	result := validPalindrome("aba")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestValistPalindrome2(t *testing.T) {
 	result := validPalindrome("abca")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestValistPalindrome3(t *testing.T) {
 	result := validPalindrome("abc")
 	answer := false
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestValistPalindrome4(t *testing.T) {
 	result := validPalindrome("aa")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestValistPalindrome5(t *testing.T) {
 	result := validPalindrome("a")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestValistPalindrome6(t *testing.T) {
 	result := validPalindrome("aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }

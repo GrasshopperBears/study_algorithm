@@ -21,11 +21,11 @@ func reverseBits(num uint32) uint32 {
 func TestReverseBits1(t *testing.T) {
 	result := reverseBits(43261596)
 	var answer uint32 = 964176192
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
 
 func TestReverseBits2(t *testing.T) {
 	result := reverseBits(4294967293)
 	var answer uint32 = 3221225471
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }

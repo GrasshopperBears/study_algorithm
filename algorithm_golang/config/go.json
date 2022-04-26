@@ -14,7 +14,7 @@
       "func Test$5(t *testing.T) {",
       "\tresult := $2($6)",
       "\tanswer := $7",
-      "\tassert.Equal(t, result, answer)",
+      "\tassert.Equal(t, answer, result)",
       "}"
     ]
   }

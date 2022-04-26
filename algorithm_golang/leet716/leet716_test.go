@@ -125,17 +125,17 @@ func TestMaxStack1(t *testing.T) {
 	maxStack.Push(5)
 	maxStack.Push(1)
 	maxStack.Push(5)
-	assert.Equal(t, maxStack.Top(), 5)
-	assert.Equal(t, maxStack.PopMax(), 5)
-	assert.Equal(t, maxStack.Top(), 1)
-	assert.Equal(t, maxStack.PeekMax(), 5)
-	assert.Equal(t, maxStack.Pop(), 1)
-	assert.Equal(t, maxStack.Top(), 5)
+	assert.Equal(t, 5, maxStack.Top())
+	assert.Equal(t, 5, maxStack.PopMax())
+	assert.Equal(t, 1, maxStack.Top())
+	assert.Equal(t, 5, maxStack.PeekMax())
+	assert.Equal(t, 1, maxStack.Pop())
+	assert.Equal(t, 5, maxStack.Top())
 }
 
 func TestMaxStack2(t *testing.T) {
 	maxStack := Constructor()
 	maxStack.Push(5)
-	assert.Equal(t, maxStack.PeekMax(), 5)
-	assert.Equal(t, maxStack.Pop(), 5)
+	assert.Equal(t, 5, maxStack.PeekMax())
+	assert.Equal(t, 5, maxStack.Pop())
 }

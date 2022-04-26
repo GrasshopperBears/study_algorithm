@@ -3,6 +3,7 @@ package leet20_test
 import (
 	// "fmt"
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -31,25 +32,29 @@ func isValid(s string) bool {
 func TestIsValid1(t *testing.T) {
 	result := isValid("()")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestIsValid2(t *testing.T) {
 	result := isValid("()[]{}")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestIsValid3(t *testing.T) {
 	result := isValid("(]")
 	answer := false
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestIsValid4(t *testing.T) {
 	result := isValid("([)]")
 	answer := false
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestIsValid5(t *testing.T) {
 	result := isValid("{[]}")
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }

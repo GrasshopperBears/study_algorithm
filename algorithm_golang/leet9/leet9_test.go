@@ -3,6 +3,7 @@ package leet9_test
 import (
 	// "fmt"
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -34,23 +35,23 @@ func isPalindrome(num int) bool {
 func Test1(t *testing.T) {
 	result := isPalindrome(121)
 	answer := true
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
 
 func Test2(t *testing.T) {
 	result := isPalindrome(-121)
 	answer := false
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
 
 func Test3(t *testing.T) {
 	result := isPalindrome(10)
 	answer := false
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
 
 func Test4(t *testing.T) {
 	result := isPalindrome(1000021)
 	answer := false
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }

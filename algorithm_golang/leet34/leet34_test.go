@@ -2,6 +2,7 @@ package leet34_test
 
 import (
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -55,6 +56,6 @@ func TestSearchRange(t *testing.T) {
 	result := searchRange(arr, 2)
 	answer := []int{3, 4}
 
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 	// assert.ElementsMatch(t, a, b) -- check without order
 }

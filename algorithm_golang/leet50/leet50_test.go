@@ -26,15 +26,17 @@ func myPow(x float64, n int) float64 {
 func TestMyPow1(t *testing.T) {
 	result := myPow(2.00000, 10)
 	answer := 1024.00000
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestMyPow2(t *testing.T) {
 	result := myPow(2.10000, 3)
 	answer := 9.26100
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
+
 func TestMyPow3(t *testing.T) {
 	result := myPow(2.00000, -2)
 	answer := 0.25000
-	assert.Equal(t, result, answer)
+	assert.Equal(t, answer, result)
 }
