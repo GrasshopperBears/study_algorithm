@@ -12,7 +12,6 @@ class Node {
 class LRUCache {
   constructor(capacity) {
     this.capacity = capacity;
-    this.size = 0;
     this.keyMap = new Map();
     this.head = new Node();
     this.tail = new Node();
@@ -36,14 +35,14 @@ class LRUCache {
 
       return this.update(node);
     }
-    if (this.size < this.capacity) {
+    if (this.capacity > 0) {
       const newNode = new Node(key, value);
       this.keyMap.set(key, newNode);
       newNode.next = this.head.next;
       this.head.next.prev = newNode;
       this.head.next = newNode;
       newNode.prev = this.head;
-      this.size++;
+      this.capacity--;
       return;
     }
     const newNode = new Node(key, value);
