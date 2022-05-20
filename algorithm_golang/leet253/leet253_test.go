@@ -10,47 +10,31 @@ import (
 )
 
 func minMeetingRooms(intervals [][]int) int {
-	var meetingRooms [][][]int
-
-	sort.Slice(intervals, func(i, j int) bool {
-		return intervals[i][0] < intervals[j][0]
-	})
+	meetingRooms := 0
+	meetingNum := len(intervals)
+	starts := []int{}
+	ends := []int{}
 
 	for _, interval := range intervals {
-		pushed := false
-		start := interval[0]
-		end := interval[1]
-		for j := range meetingRooms {
-			meetingRoom := &meetingRooms[j]
-			for i, meeting := range *meetingRoom {
-				if i == 0 && meeting[0] >= end {
-					*meetingRoom = append((*meetingRoom)[:1], (*meetingRoom)[0:]...)
-					(*meetingRoom)[0] = interval
-					pushed = true
-					break
-				}
-				if start >= meeting[1] {
-					if i == len((*meetingRoom)) - 1 {
-						*meetingRoom = append(*meetingRoom, interval)
-						pushed = true
-						break
-					}
-					if end <= (*meetingRoom)[i+1][0] {
-						*meetingRoom = append((*meetingRoom)[:i+1], (*meetingRoom)[i:]...)
-						(*meetingRoom)[i] = interval
-						pushed = true
-						break
-					}
-				}
-			}
-			if pushed { break }
+		starts = append(starts, interval[0])
+		ends = append(ends, interval[1])
+	}
+	sort.Ints(starts)
+	sort.Ints(ends)
+	
+	startIdx := 0
+	endIdx := 0
+
+	for ; startIdx < meetingNum; {
+		if starts[startIdx] >= ends[endIdx] {
+			endIdx++
+		} else {
+			meetingRooms++
 		}
-		if !pushed {
-			meetingRooms = append(meetingRooms, [][]int{interval})
-		}
+		startIdx++
 	}
 
-	return len(meetingRooms)
+	return meetingRooms
 }
 
 func TestMinMeetingRooms1(t *testing.T) {
