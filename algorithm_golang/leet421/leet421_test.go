@@ -16,7 +16,7 @@ func findMaxInt(nums *[]int) int {
 	return max
 }
 
-func findMaximumXOR(nums []int) int {
+func SetSolution(nums []int) int {
 	maxXOR := 0
 	digits := len(strconv.FormatInt(int64(findMaxInt(&nums)), 2))
 
@@ -38,6 +38,60 @@ func findMaximumXOR(nums []int) int {
 	}
 
 	return maxXOR
+}
+
+type MaxTrie struct {
+	zero *MaxTrie
+	one *MaxTrie
+}
+
+func TrieSolution(nums []int) int {
+	maxXOR := 0
+	digits := len(strconv.FormatInt(int64(findMaxInt(&nums)), 2))
+	trie := MaxTrie{}
+	
+	// Build trie
+	for _, num := range nums {
+		currTrie := &trie
+		compareTrie := &trie
+		currMax := 0
+	
+		for i := digits - 1; i >= 0; i-- {
+			currMax <<= 1
+			if (num >> i) & 1 == 1 {
+				if currTrie.one == nil {
+					currTrie.one = &MaxTrie{}
+				}
+				currTrie = currTrie.one
+				if compareTrie.zero != nil {
+					currMax |= 1
+					compareTrie = compareTrie.zero
+				} else {
+					if compareTrie.one == nil { compareTrie.one = &MaxTrie{} }
+					compareTrie = compareTrie.one
+				}
+			} else {
+				if currTrie.zero == nil {
+					currTrie.zero = &MaxTrie{}
+				}
+				currTrie = currTrie.zero
+				if compareTrie.one != nil {
+					currMax |= 1
+					compareTrie = compareTrie.one
+				} else {
+					if compareTrie.zero == nil { compareTrie.zero = &MaxTrie{} }
+					compareTrie = compareTrie.zero
+				}
+			}
+		}
+		if maxXOR < currMax { maxXOR = currMax }
+	}
+	return maxXOR
+}
+
+func findMaximumXOR(nums []int) int {
+	// return SetSolution(nums)
+	return TrieSolution(nums)
 }
 
 func TestFindMaximumXOR1(t *testing.T) {
