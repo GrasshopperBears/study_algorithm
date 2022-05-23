@@ -4,7 +4,6 @@
     "body": [
       "package $1_test\n",
       "import (",
-      "\t// \"fmt\"",
       "\t\"testing\"",
       "\t\"github.com/stretchr/testify/assert\"",
       ")\n",
