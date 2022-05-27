@@ -17,24 +17,17 @@ func addBinary(a string, b string) string {
 	carry := byte('0')
 
 	for i, j := len(a) - 1, len(b) - 1; i >= 0 || j >= 0; {
-		if i < 0 {
-			addResult := addBinaryString(carry, b[j])
-			carry = addResult[0]
-			result = string(addResult[1]) + result
-			j--
-		} else if j < 0 {
-			addResult := addBinaryString(carry, a[i])
-			carry = addResult[0]
-			result = string(addResult[1]) + result
-			i--
-		} else {
-			addResult1 := addBinaryString(a[i], b[j])
-			addResult2 := addBinaryString(addResult1[1], carry)
-			carry = addBinaryString(addResult1[0], addResult2[0])[1]
-			result = string(addResult2[1]) + result
-			i--
-			j--
-		}
+		one, two := byte('0'), byte('0')
+		if i >= 0 { one = a[i] }
+		if j >= 0 { two = b[j] }
+
+		addResult1 := addBinaryString(one, two)
+		addResult2 := addBinaryString(addResult1[1], carry)
+		carry = addBinaryString(addResult1[0], addResult2[0])[1]
+		result = string(addResult2[1]) + result
+
+		i--
+		j--
 	}
 	if carry == '1' { result = "1" + result }
 
