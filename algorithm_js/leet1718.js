@@ -2,27 +2,30 @@ const assert = require('assert');
 
 const constructDistancedSequence = (n) => {
   const result = new Array(2 * n - 1).fill(0);
+  const using = new Set();
 
-  const use = (idx, using) => {
+  const use = (idx) => {
     if (idx === result.length) return true;
-    if (result[idx]) return use(idx + 1, using);
+    if (result[idx]) return use(idx + 1);
 
     for (let i = n; i > 0; i--) {
-      if (using.includes(i)) continue;
+      if (using.has(i)) continue;
       result[idx] = i;
+      using.add(i);
 
       if (i === 1) {
-        if (use(idx + 1, [...using, i])) return true;
+        if (use(idx + 1)) return true;
       } else if (idx + i < result.length && !result[idx + i]) {
         result[idx + i] = i;
-        if (use(idx + 1, [...using, i])) return true;
+        if (use(idx + 1)) return true;
         result[idx + i] = 0;
       }
+      using.delete(i);
       result[idx] = 0;
     }
     return false;
   };
-  use(0, []);
+  use(0);
   return result;
 };
 
