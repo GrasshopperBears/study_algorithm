@@ -1,30 +1,40 @@
-from collections import deque
-import heapq
+def getCtsSum(arr, arrLen):
+    pre = [0 for _ in range(arrLen+1)]
+    post = [0 for _ in range(arrLen+1)]
 
-def main(a, b, k):
-    answer = 0
-    heap = []
-    taskA = deque(a)
-    taskB = deque(b)
-    heapq.heappush(heap, (-taskA[0], True, 0))
-    if len(taskA) > 1:
-        heapq.heappush(heap, (-taskA[-1], True, -1))
-    heapq.heappush(heap, (-taskB[0], False, 0))
-    if len(taskB) > 1:
-        heapq.heappush(heap, (-taskB[-1], False, -1))
+    for i in range(1, arrLen+1):
+        pre[i] = pre[i-1] + arr[i-1]
+        post[i] = post[i-1] + arr[arrLen-i]
     
-    for _ in range(k):
-        point, isTaskA, idx = heapq.heappop(heap)
-        print(point, isTaskA, idx)
-        answer -= point
-        targetTask = taskA if isTaskA else taskB
-        if idx == 0:
-            targetTask.popleft()
-        else:
-            targetTask.pop()
-        if len(targetTask) > 1:
-            heapq.heappush(heap, (-targetTask[idx], isTaskA, idx))
-        
+    return pre, post
+
+
+def findMax(pre, post, k):
+    dp = [0 for _ in range(min(k+1, len(pre)))]
+    for cnt in range(1, len(dp)):
+        for i in range(cnt+1):
+            dp[cnt] = max(dp[cnt], pre[i] + post[cnt-i])
+
+    return dp
+
+
+def main(aLen, a, bLen, b, k):
+    aPre, aPost = getCtsSum(a, aLen)
+    bPre, bPost = getCtsSum(b, bLen)
+    
+    aDp = findMax(aPre, aPost, k)
+    bDp = findMax(bPre, bPost, k)
+    
+    if aLen > bLen:
+        aLen, bLen = bLen, aLen
+        aDp, bDp = bDp, aDp
+    
+    answer = 0
+    minCnt = 0 if bLen >= k else k - bLen
+    maxCnt = aLen if aLen < k else k
+    for i in range(minCnt, maxCnt+1):
+        answer = max(aDp[i] + bDp[k-i], answer)
+    
     return answer
 
 testCases = int(input())
@@ -34,4 +44,4 @@ for i in range(testCases):
     bLen = int(input())
     b = list(map(int, input().split(' ')))
     k = int(input())
-    print('Case #{}: {}'.format(i+1, main(a, b, k)))
+    print('Case #{}: {}'.format(i+1, main(aLen, a, bLen, b, k)))
