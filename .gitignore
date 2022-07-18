@@ -5,3 +5,4 @@ algorithm_rust/target/
 **/node_modules/
 
 **/coding-test/
+.DS_Store
