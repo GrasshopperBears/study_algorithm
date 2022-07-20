@@ -3,54 +3,46 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Boj2108 {
+    public static int updateFrequency(ArrayList<Integer> freq, int freqCnt, int curr, int currCnt) {
+        if (freqCnt < currCnt) {
+            freq.clear();
+            freq.add(curr);
+            return currCnt;
+        } 
+        if (freqCnt == currCnt) freq.add(curr);
+        return freqCnt;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int caseNum = Integer.parseInt(br.readLine());
-        SortedMap<Integer, Integer> sortedMap = new TreeMap<>();
+        int N = Integer.parseInt(br.readLine()), num, freqCnt = 0, curr = 4001, currCnt = -1;
         double sum = 0;
+        ArrayList<Integer> nums = new ArrayList<>(N), freq = new ArrayList<>();
 
-        for (int i = 0; i < caseNum; i++) {
-            int num = Integer.parseInt(br.readLine());
+        for (int i = 0; i < N; i++) {
+            nums.add(Integer.parseInt(br.readLine()));
+        }
+        Collections.sort(nums);
+        
+        Iterator<Integer> itr = nums.iterator();
+        while (itr.hasNext()) {
+            num = itr.next();
             sum += num;
-            if (sortedMap.containsKey(num)) {
-                sortedMap.put(num, sortedMap.get(num) + 1);
+
+            if (num != curr) {
+                freqCnt = updateFrequency(freq, freqCnt, curr, currCnt);
+                curr = num;
+                currCnt = 1;
             } else {
-                sortedMap.put(num, 1);
+                currCnt++;
             }
         }
+        updateFrequency(freq, freqCnt, curr, currCnt);
+        Collections.sort(freq);
 
-        int max_freq = 0, middle = 0, pos = -1, middlePos = (caseNum - 1) / 2;
-        ArrayList<Integer> max_freq_values = new ArrayList<>();
-        Set<Map.Entry<Integer, Integer>> set = sortedMap.entrySet();
-
-        for (Map.Entry<Integer, Integer>tmpEntry: set) {
-            int key = tmpEntry.getKey();
-            int val = tmpEntry.getValue();
-            pos += val;
-
-            if (middle == 0 && pos >= middlePos) {
-                middle = key;
-            }
-
-            if (val > max_freq) {
-                max_freq_values.clear();
-                max_freq_values.add(key);
-                max_freq = val;
-            } else if (val == max_freq) {
-                max_freq_values.add(key);
-            }
-        }
-
-        System.out.println(Math.round(sum / caseNum));
-        System.out.println(middle);
-
-        if (max_freq_values.size() == 1) {
-            System.out.println(max_freq_values.get(0));
-        } else {
-            max_freq_values.sort((o1, o2) -> o1 - o2);
-            System.out.println(max_freq_values.get(1));
-        }
-
-        System.out.println(sortedMap.lastKey() - sortedMap.firstKey());
+        System.out.println(Math.round(sum / N));
+        System.out.println(nums.get(N / 2));
+        System.out.println(freq.size() > 1 ? freq.get(1) : freq.get(0));
+        System.out.println(nums.get(N-1) - nums.get(0));
     }
 }
