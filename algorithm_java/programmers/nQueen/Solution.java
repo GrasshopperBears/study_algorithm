@@ -34,6 +34,6 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(solution(5)); // 2
+        System.out.println(solution(4)); // 2
     }
 }
