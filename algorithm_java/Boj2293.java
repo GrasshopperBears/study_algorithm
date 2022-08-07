@@ -1,26 +1,24 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 public class Boj2293 {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] line = br.readLine().trim().split(" ");
-        int coinNum = Integer.parseInt(line[0]);
-        int[] coinList = new int[coinNum];
-        int[] possibleCases = new int[Integer.parseInt(line[1]) + 1];
+        String[] tokens = br.readLine().trim().split(" ");
+        int n = Integer.parseInt(tokens[0]);
+        int k = Integer.parseInt(tokens[1]);
+        int[] coins = new int[n];
+        int[] dp = new int[k + 1];
 
-        for (int i = 0; i < coinNum; i++) {
-            coinList[i] = Integer.parseInt(br.readLine().trim());
+        for (int i = 0; i < n; i++)
+            coins[i] = Integer.parseInt(br.readLine());
+
+        dp[0] = 1;
+        for (int i = 0; i < n; i++) {
+            int currentCoin = coins[i];
+            for (int j = currentCoin; j <= k; j++)
+                dp[j] += dp[j - currentCoin];
         }
-        Arrays.sort(coinList);
-
-        for (int i = 0; i < coinNum; i++) {
-            
-        }
-
-        for (int i = 0; i < possibleCases.length; i++) {
-
-        }
+        System.out.println(dp[k]);
     }
 }
