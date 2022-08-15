@@ -1,35 +1,71 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.PriorityQueue;
 
 public class Boj1477 {
+    private static int n, m;
+    private static int[] intervals, maxIntervals;
+    private static int[][] dp;
+
+    private static int splittedLen(int index, int count) {
+        int result = intervals[index] / count;
+        if (result * count < intervals[index])
+            result++;
+        return result;
+    }
+
+    private static int split(int index, int leftover) {
+        if (dp[index][leftover] > 0)
+            return dp[index][leftover];
+        if (leftover == 0) {
+            dp[index][leftover] = maxIntervals[index];
+            return maxIntervals[index];
+        }
+        if (index == n) {
+            if (intervals[index] <= leftover)
+                return Integer.MAX_VALUE;
+            dp[index][leftover] = splittedLen(index, leftover + 1);
+            return dp[index][leftover];
+        }
+        int minMaxDist = Integer.MAX_VALUE;
+        for (int i = 0; i <= leftover; i++) {
+            int currSplit = splittedLen(index, i + 1);
+            int subResult = split(index + 1, leftover - i);
+            minMaxDist = Math.min(minMaxDist, Math.max(currSplit, subResult));
+        }
+        dp[index][leftover] = minMaxDist;
+        return minMaxDist;
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         String[] tokens = br.readLine().split(" ");
-        int n = Integer.parseInt(tokens[0]), m = Integer.parseInt(tokens[1]), l = Integer.parseInt(tokens[2]);
+        n = Integer.parseInt(tokens[0]);
+        m = Integer.parseInt(tokens[1]);
+        int l = Integer.parseInt(tokens[2]);
         int[] positions = new int[n];
-        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        intervals = new int[n + 1];
+        maxIntervals = new int[n + 1];
+        dp = new int[n + 1][m + 1];
 
         tokens = br.readLine().split(" ");
         for (int i = 0; i < n; i++)
             positions[i] = Integer.parseInt(tokens[i]);
         Arrays.sort(positions);
 
-        int prev = 0;
-        for (int i = 0; i < n; i++) {
-            pq.add(prev - positions[i]);
-            prev = positions[i];
-        }
-        pq.add(prev - l);
-
-        for (int ii = 0; ii < m; ii++) {
-            int biggest = pq.poll();
-            int part = biggest / 2;
-            pq.add(part);
-            pq.add(biggest - part);
+        if (n > 0) {
+            intervals[0] = positions[0];
+            for (int i = 1; i < n; i++)
+                intervals[i] = positions[i] - positions[i - 1];
+            intervals[n] = l - positions[n - 1];
+        } else {
+            intervals[0] = l;
         }
 
-        System.out.println(-pq.poll());
+        maxIntervals[n] = intervals[n];
+        for (int i = n - 1; i >= 0; i--)
+            maxIntervals[i] = Math.max(maxIntervals[i + 1], intervals[i]);
+
+        System.out.println(split(0, m));
     }
 }
