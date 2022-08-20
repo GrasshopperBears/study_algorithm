@@ -5,8 +5,7 @@ import java.util.Arrays;
 public class Boj11723 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        boolean[] set = new boolean[21];
-        int ops = Integer.parseInt(br.readLine());
+        int set = 0, ops = Integer.parseInt(br.readLine());
         StringBuilder answer = new StringBuilder();
 
         for (int l = 0; l < ops; l++) {
@@ -15,17 +14,17 @@ public class Boj11723 {
             int num = tokens.length > 1 ? Integer.parseInt(tokens[1]) : 0;
 
             if (op.equals("add")) {
-                set[num] = true;
+                set |= 1 << (num - 1);
             } else if (op.equals("remove")) {
-                set[num] = false;
+                set &= ~(1 << (num - 1));
             } else if (op.equals("check")) {
-                answer.append(set[num] ? 1 : 0).append("\n");
+                answer.append((set & (1 << (num - 1))) > 0 ? 1 : 0).append("\n");
             } else if (op.equals("toggle")) {
-                set[num] = !set[num];
+                set ^= 1 << (num - 1);
             } else if (op.equals("all")) {
-                Arrays.fill(set, true);
+                set = -1;
             } else if (op.equals("empty")) {
-                Arrays.fill(set, false);
+                set = 0;
             }
         }
         System.out.println(answer.toString());
