@@ -1,61 +1,48 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.Arrays;
+
+class Meeting implements Comparable<Meeting> {
+    int from, to;
+
+    public Meeting(int from, int to) {
+        this.from = from;
+        this.to = to;
+    }
+
+    public int compareTo(Meeting meeting) {
+        if (this.to < meeting.to)
+            return -1;
+        if (this.to > meeting.to)
+            return 1;
+        if (this.from < meeting.from)
+            return -1;
+        return 1;
+    }
+}
 
 public class Boj1931 {
-    private static ArrayList<int[]> require = new ArrayList<>();
+    private static Meeting[] meetings;
     private static int meetingNum;
-    private static int endTime = 0;
-
-    public static boolean isPossible(int from, int to, boolean[] timetable) {
-        for (int i = from; i < to; i++) {
-            if (timetable[i]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static int findMaxMeeting(int meetingIdx, boolean[] timetable) {
-        int startTime = require.get(meetingIdx)[0];
-        int endTime = require.get(meetingIdx)[1];
-
-        if (meetingIdx == require.size() - 1) {
-            if (isPossible(startTime, endTime, timetable)) {
-                return 1;
-            }
-            return 0;
-        }
-
-        if (!isPossible(startTime, endTime, timetable)) {
-            return findMaxMeeting(meetingIdx + 1, timetable);
-        }
-
-        int ifNotFilled = findMaxMeeting(meetingIdx + 1, timetable);
-        for (int i = startTime; i < endTime; i++) {
-            timetable[i] = true;
-        }
-        int ifFilled = findMaxMeeting(meetingIdx + 1, timetable);
-        for (int i = startTime; i < endTime; i++) {
-            timetable[i] = false;
-        }
-
-        return ifFilled + 1 > ifNotFilled ? ifFilled + 1 : ifNotFilled;
-    }
 
     public static void main(String[] args) throws Exception {
+        int answer = 0, last = 0;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         meetingNum = Integer.parseInt(br.readLine());
+        meetings = new Meeting[meetingNum];
 
         for (int i = 0; i < meetingNum; i++) {
-            String[] tmp = br.readLine().trim().split(" ");
-            if (endTime < Integer.parseInt(tmp[1])) {
-                endTime = Integer.parseInt(tmp[1]);
-            }
-            require.add(new int[]{Integer.parseInt(tmp[0]), Integer.parseInt(tmp[1])});
+            String[] tokens = br.readLine().split(" ");
+            meetings[i] = new Meeting(Integer.parseInt(tokens[0]), Integer.parseInt(tokens[1]));
         }
+        Arrays.sort(meetings);
 
-        boolean[] timetable = new boolean[endTime];
-        System.out.println(findMaxMeeting(0, timetable));
+        for (int i = 0; i < meetingNum; i++) {
+            if (meetings[i].from >= last) {
+                answer++;
+                last = meetings[i].to;
+            }
+        }
+        System.out.println(answer);
     }
 }
