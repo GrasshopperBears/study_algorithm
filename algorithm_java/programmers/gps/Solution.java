@@ -1,55 +1,42 @@
 package programmers.gps;
 
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-
-class Info implements Comparable<Info> {
-    int modify, pos, time;
-
-    public Info(int modify, int pos, int time) {
-        this.modify = modify;
-        this.pos = pos;
-        this.time = time;
-    }
-
-    public int compareTo(Info info) {
-        return this.modify > info.modify ? 1 : -1;
-    }
-}
+import java.util.Arrays;
+import java.util.HashSet;
 
 class Solution {
     public static int solution(int n, int m, int[][] edge_list, int k, int[] gps_log) {
-        int from = gps_log[0], to = gps_log[k - 1];
-        PriorityQueue<Info> pq = new PriorityQueue<>();
-        ArrayList<Integer>[] graph = new ArrayList[n + 1];
+        HashSet<Integer>[] graph = new HashSet[n + 1];
+        int[][] dp = new int[k][n + 1];
 
         for (int[] edge : edge_list) {
             int a = edge[0], b = edge[1];
             if (graph[a] == null)
-                graph[a] = new ArrayList<>();
+                graph[a] = new HashSet<>();
             if (graph[b] == null)
-                graph[b] = new ArrayList<>();
+                graph[b] = new HashSet<>();
             graph[a].add(b);
             graph[b].add(a);
         }
 
-        pq.add(new Info(0, from, 0));
+        for (int[] r : dp)
+            Arrays.fill(r, -1);
 
-        while (pq.size() > 0) {
-            Info info = pq.poll();
-            if (info.time == k - 1) {
-                if (info.pos == to)
-                    return info.modify;
-                continue;
-            }
-            if (graph[info.pos] == null)
-                continue;
-            for (int adj : graph[info.pos]) {
-                int nextTime = info.time + 1;
-                pq.add(new Info(info.modify + (gps_log[nextTime] == adj ? 0 : 1), adj, nextTime));
+        dp[0][gps_log[0]] = 0;
+
+        for (int i = 1; i < k; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (graph[j] == null)
+                    continue;
+                int minModify = -1;
+                for (int adj : graph[j]) {
+                    if (dp[i - 1][adj] >= 0 && (minModify < 0 || minModify > dp[i - 1][adj]))
+                        minModify = dp[i - 1][adj];
+                }
+                if (minModify >= 0)
+                    dp[i][j] = minModify + (j == gps_log[i] ? 0 : 1);
             }
         }
-        return -1;
+        return dp[k - 1][gps_log[k - 1]];
     }
 
     public static void main(String[] args) {
