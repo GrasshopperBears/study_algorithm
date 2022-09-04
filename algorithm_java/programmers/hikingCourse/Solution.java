@@ -17,29 +17,27 @@ class Path implements Comparable<Path> {
 }
 
 class Solution {
-    private static boolean[] visited;
-    private static ArrayList<Integer>[] graph;
-    private static Set<Integer> summitSet = new HashSet<>(), gateSet = new HashSet<>();
+    private static boolean[] visited, isGate, isSummit;
+    private static ArrayList<Integer>[] graph, visitable;
 
     private static int findGate(int summit) {
-        Queue<Integer> q = new LinkedList<>();
+        Queue<Integer> q = new LinkedList<>(visitable[summit]);
         Arrays.fill(visited, false);
-        q.add(summit);
-        visited[summit] = true;
+        for (int i : q)
+            visited[i] = true;
 
         while (q.size() > 0) {
             int pos = q.poll();
-            if (gateSet.contains(pos))
+            if (isGate[pos])
                 return pos;
-            if (summitSet.contains(pos) && pos != summit)
-                continue;
             ArrayList<Integer> adjList = graph[pos];
             if (adjList == null)
                 continue;
             for (int adj : adjList) {
-                if (!visited[adj]) {
+                if (!visited[adj] && !isSummit[adj]) {
                     q.add(adj);
                     visited[adj] = true;
+                    visitable[summit].add(adj);
                 }
             }
         }
@@ -47,30 +45,38 @@ class Solution {
     }
 
     public static int[] solution(int n, int[][] paths, int[] gates, int[] summits) {
-        PriorityQueue<Path> pq = new PriorityQueue<>();
+        int pathCount = paths.length;
         int[] answer = new int[2];
+        ArrayList<Path> pq = new ArrayList<>(pathCount);
+        int idx = 0;
+        visitable = new ArrayList[n + 1];
+
+        for (int i = 0; i <= n; i++) {
+            visitable[i] = new ArrayList<>();
+            visitable[i].add(i);
+        }
 
         graph = new ArrayList[n + 1];
         visited = new boolean[n + 1];
+        isGate = new boolean[n + 1];
+        isSummit = new boolean[n + 1];
 
         Arrays.sort(summits);
-        for (int summit : summits)
-            summitSet.add(summit);
         for (int gate : gates)
-            gateSet.add(gate);
-
+            isGate[gate] = true;
         for (int summit : summits)
-            summitSet.add(summit);
-        for (int gate : gates)
-            gateSet.add(gate);
+            isSummit[summit] = true;
 
-        for (int[] path : paths)
+        for (int i = 0; i < pathCount; i++) {
+            int[] path = paths[i];
             pq.add(new Path(path[0], path[1], path[2]));
+        }
+        Collections.sort(pq);
 
-        while (pq.size() > 0) {
-            int minPathCost = pq.peek().cost;
-            while (pq.size() > 0 && pq.peek().cost == minPathCost) {
-                Path minPath = pq.poll();
+        while (idx < pathCount) {
+            int minPathCost = pq.get(idx).cost;
+            while (idx < pathCount && pq.get(idx).cost == minPathCost) {
+                Path minPath = pq.get(idx++);
                 if (graph[minPath.p1] == null)
                     graph[minPath.p1] = new ArrayList<>();
                 if (graph[minPath.p2] == null)
