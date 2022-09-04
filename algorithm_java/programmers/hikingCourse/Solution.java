@@ -19,7 +19,7 @@ class Path implements Comparable<Path> {
 class Solution {
     private static boolean[] visited;
     private static ArrayList<Integer>[] graph;
-    private static HashSet<Integer> summitSet = new HashSet<>(), gateSet = new HashSet<>();
+    private static Set<Integer> summitSet = new HashSet<>(), gateSet = new HashSet<>();
 
     private static int findGate(int summit) {
         Queue<Integer> q = new LinkedList<>();
@@ -53,6 +53,12 @@ class Solution {
         graph = new ArrayList[n + 1];
         visited = new boolean[n + 1];
 
+        Arrays.sort(summits);
+        for (int summit : summits)
+            summitSet.add(summit);
+        for (int gate : gates)
+            gateSet.add(gate);
+
         for (int summit : summits)
             summitSet.add(summit);
         for (int gate : gates)
@@ -72,7 +78,7 @@ class Solution {
                 graph[minPath.p1].add(minPath.p2);
                 graph[minPath.p2].add(minPath.p1);
             }
-            for (int summit : summitSet) {
+            for (int summit : summits) {
                 int gate = findGate(summit);
                 if (gate > 0) {
                     answer[0] = summit;
