@@ -45,9 +45,9 @@ public class Leet694 {
             }
         }
         for (HashSet<Integer> s : shapes) {
-            HashSet<Integer> tmp = new HashSet<>(s);
-            tmp.addAll(shape);
-            if (tmp.size() == s.size() && tmp.size() == shape.size())
+            if (s.size() != shape.size())
+                continue;
+            if (s.equals(shape))
                 return false;
         }
         shapes.add(shape);
