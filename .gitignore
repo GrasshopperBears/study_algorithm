@@ -6,3 +6,5 @@ algorithm_rust/target/
 
 **/coding-test/
 .DS_Store
+
+target/
