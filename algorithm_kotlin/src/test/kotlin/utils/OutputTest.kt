@@ -14,6 +14,9 @@ open class OutputTest {
     }
 
     fun isOutputStreamEqualTo(expected: String) {
-        Assertions.assertThat(outputStreamCaptor.toString().trim()).isEqualTo(expected)
+        Assertions.assertThat(outputStreamCaptor.toString()
+                                                .trim()
+                                                .replace("\\s+\n".toRegex(), "\n"))
+            .isEqualTo(expected)
     }
 }
